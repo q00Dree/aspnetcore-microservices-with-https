@@ -30,8 +30,6 @@ namespace Sample.FirstService
                         {
                             AllowIntegerValues = false
                         });
-
-                        options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     });
 
             services.AddSwaggerGenNewtonsoftSupport();
