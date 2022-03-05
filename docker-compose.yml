@@ -39,11 +39,11 @@ services:
     volumes:
       - "./logs/gateway:/app/logs"
     healthcheck:
-            test: curl -sS http://127.0.0.1:5000/health || exit 1
-            interval: 30s
-            timeout: 10s
-            retries: 3
-            start_period: 30s
+      test: curl -sS http://127.0.0.1:5000/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   first_service:
     image: first_service:latest
@@ -63,11 +63,11 @@ services:
     volumes:
       - "./logs/firstService:/app/logs"
     healthcheck:
-            test: curl -sS http://127.0.0.1:5001/health || exit 1
-            interval: 30s
-            timeout: 10s
-            retries: 3
-            start_period: 30s
+      test: curl -sS http://127.0.0.1:5001/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   second_service:
     image: second_service:latest
@@ -87,11 +87,11 @@ services:
     volumes:
       - "./logs/secondService:/app/logs"
     healthcheck:
-            test: curl -sS http://127.0.0.1:5002/health || exit 1
-            interval: 30s
-            timeout: 10s
-            retries: 3
-            start_period: 30s
+      test: curl -sS http://127.0.0.1:5002/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   postgresdb:
     image: postgres:latest
