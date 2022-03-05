@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY ./ ./
 
-RUN dotnet publish Sample.Gateway/Sample.Gateway.csproj -c Release -o out 
+RUN dotnet publish ./Gateway/Sample.Gateway/Sample.Gateway.csproj -c Release -o out 
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
