@@ -9,7 +9,6 @@ services:
   proxy:
     image: jonasal/nginx-certbot:latest
     container_name: proxy
-    # I don't know why, but this line is ruining certificate request. (Maybe other cause)
     # hostname: proxy 
     environment:
       CERTBOT_EMAIL: "shard.f@mail.ru"
@@ -17,6 +16,8 @@ services:
       - "80:80"
       - "443:443"
     restart: unless-stopped
+    depends_on:
+      - gateway
     networks:
       - "microservices-network"
     volumes:
@@ -26,15 +27,13 @@ services:
   gateway:
     image: gateway:latest
     container_name: gateway
-    hostname: gateway
+    # hostname: gateway
     build:
       context: ./src
       dockerfile: ./Gateway/Sample.Gateway/Dockerfile
     expose:
       - "5000"
     restart: always
-    depends_on:
-      - proxy
     networks:
       - "microservices-network"
     volumes:
@@ -49,7 +48,7 @@ services:
   first_service:
     image: first_service:latest
     container_name: first_service
-    hostname: first_service
+    # hostname: first_service
     build:
       context: ./src
       dockerfile: ./FirstService/Sample.FirstService/Dockerfile
@@ -73,7 +72,7 @@ services:
   second_service:
     image: second_service:latest
     container_name: second_service
-    hostname: second_service
+    # hostname: second_service
     build:
       context: ./src
       dockerfile: ./SecondService/Sample.SecondService/Dockerfile
@@ -97,7 +96,7 @@ services:
   postgresdb:
     image: postgres:latest
     container_name: postgresdb
-    hostname: postgresdb
+    # hostname: postgresdb
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
@@ -112,7 +111,7 @@ services:
   mongodb:
     image: mongo:latest
     container_name: mongodb
-    hostname: mongodb
+    # hostname: mongodb
     ports:
       - "27017:27017"
     restart: always
