@@ -1,0 +1,121 @@
+version: "3.7"
+
+networks:
+  microservices-network:
+    driver: bridge
+
+services:
+
+  proxy:
+    image: jonasal/nginx-certbot:latest
+    container_name: proxy
+    hostname: proxy
+    environment:
+      CERTBOT_EMAIL: "shard.f@mail.ru"
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    networks:
+      - "microservices-network"
+    volumes:
+      - ./certificates:/etc/letsencrypt
+      - ./proxy/user_conf.d:/etc/nginx/user_conf.d
+
+  gateway:
+    image: gateway:latest
+    container_name: gateway
+    hostname: gateway
+    build:
+      context: ./src
+      dockerfile: ./Gateway/Sample.Gateway/Dockerfile
+    expose:
+      - "5000"
+    restart: always
+    depends_on:
+      - proxy
+    networks:
+      - "microservices-network"
+    volumes:
+      - "./logs/gateway:/app/logs"
+    healthcheck:
+            test: curl -sS http://127.0.0.1:5000/health || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 30s
+
+  first_service:
+    image: first_service:latest
+    container_name: first_service
+    hostname: first_service
+    build:
+      context: ./src
+      dockerfile: ./FirstService/Sample.FirstService/Dockerfile
+    expose:
+      - "5001"
+    restart: always
+    depends_on:
+      - gateway
+      - postgresdb
+    networks:
+      - "microservices-network"
+    volumes:
+      - "./logs/firstService:/app/logs"
+    healthcheck:
+            test: curl -sS http://127.0.0.1:5001/health || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 30s
+
+  second_service:
+    image: second_service:latest
+    container_name: second_service
+    hostname: second_service
+    build:
+      context: ./src
+      dockerfile: ./SecondService/Sample.SecondService/Dockerfile
+    expose:
+      - "5002"
+    restart: always
+    depends_on:
+      - gateway
+      - mongodb
+    networks:
+      - "microservices-network"
+    volumes:
+      - "./logs/secondService:/app/logs"
+    healthcheck:
+            test: curl -sS http://127.0.0.1:5002/health || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 30s
+
+  postgresdb:
+    image: postgres:latest
+    container_name: postgresdb
+    hostname: postgresdb
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - "microservices-network"
+    volumes:
+      - "./postgresdbdata:/var/lib/postgresql/data"
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    hostname: mongodb
+    ports:
+      - "27017:27017"
+    restart: always
+    networks:
+      - "microservices-network"
+    volumes:
+      - "./mongodbdata:/data/db"

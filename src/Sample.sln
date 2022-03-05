@@ -19,6 +19,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.SecondService", "Sec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.SecondService.HttpApiConnector", "SecondService\Sample.SecondService.HttpApiConnector\Sample.SecondService.HttpApiConnector.csproj", "{CA68C5D2-1453-44DE-8962-7EE7E92F9E27}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FC5DDAC3-DF66-4ACE-A050-A98CD5770189}"
+	ProjectSection(SolutionItems) = preProject
+		..\docker-compose.yml = ..\docker-compose.yml
+		..\down.sh = ..\down.sh
+		..\README.md = ..\README.md
+		..\up.sh = ..\up.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxy", "proxy", "{C9778783-48E8-4859-AFA2-D30962E97470}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "user_conf.d", "user_conf.d", "{A635CB29-6853-48A0-B347-C91A3C01D39F}"
+	ProjectSection(SolutionItems) = preProject
+		..\proxy\user_conf.d\nginx.conf = ..\proxy\user_conf.d\nginx.conf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +70,8 @@ Global
 		{6E9F739A-F5E4-44C6-B5B7-4CCADAA89B71} = {CE16AF3F-8912-4CD8-9DA5-4112700B17F3}
 		{733C701D-EF27-4DE2-BAEA-6C110539C502} = {EFE61D32-1902-45BA-8D1B-0566870AB064}
 		{CA68C5D2-1453-44DE-8962-7EE7E92F9E27} = {EFE61D32-1902-45BA-8D1B-0566870AB064}
+		{C9778783-48E8-4859-AFA2-D30962E97470} = {FC5DDAC3-DF66-4ACE-A050-A98CD5770189}
+		{A635CB29-6853-48A0-B347-C91A3C01D39F} = {C9778783-48E8-4859-AFA2-D30962E97470}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8ADF6D60-7C80-45FF-8FB5-22967A476AFC}
