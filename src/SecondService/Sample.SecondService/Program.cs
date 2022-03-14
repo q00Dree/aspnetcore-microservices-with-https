@@ -48,7 +48,10 @@ namespace Sample.SecondService
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls(urls: "http://0.0.0.0:5002");
+
+                    // webBuilder.UseUrls(urls: "http://0.0.0.0:5002");
+                    // Configure it in appsettings.json instead.
+                    // Don't forget to add ["externalUrlConfiguration": true] to Properties/launchSettings.json to explicitly override from appsettings.json and avoid warning.
                 })
                 .ConfigureLogging(logging =>
                 {

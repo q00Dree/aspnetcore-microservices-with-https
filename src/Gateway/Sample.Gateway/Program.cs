@@ -48,7 +48,10 @@ namespace Sample.Gateway
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls(urls: "http://0.0.0.0:5000");
+
+                    // webBuilder.UseUrls(urls: "http://0.0.0.0:5000");
+                    // Configure it in appsettings.json instead.
+                    // Don't forget to add ["externalUrlConfiguration": true] to Properties/launchSettings.json to explicitly override from appsettings.json and avoid warning.
                 })
                 .ConfigureLogging(logging =>
                 {

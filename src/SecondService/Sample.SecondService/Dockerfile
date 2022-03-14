@@ -11,9 +11,9 @@ WORKDIR /app
 COPY --from=build /app/out .
 
 # By default, ASPNETCORE uses port 80, but if you need to expose an other port, like 5002, 
-# you should use line below or use method webBuilder.UseUrls(urls: "http://0.0.0.0:5002") in Program.cs, while configuring IHostBuilder.
+# you should use line below or use method webBuilder.UseUrls(urls: "http://0.0.0.0:5002") in Program.cs, while configuring IHostBuilder or configure Kestrel in appsettings.json
 
-# ENV ASPNETCORE_URLS=http://*:5002
+# ENV ASPNETCORE_URLS=http://0.0.0.0:5002
 
 ENTRYPOINT ["dotnet", "Sample.SecondService.dll"]
 
